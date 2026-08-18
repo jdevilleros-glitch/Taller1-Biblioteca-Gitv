@@ -16,10 +16,7 @@ public class Main {
 static ArrayList<Cliente> clientes = new ArrayList<>();
 static Scanner sc = new Scanner(System.in);
 public static void main(String[] args) {
-    crearCliente();
-    listarClientes();
-    buscarCliente("5");
-    actualizarCliente();
+    
 // Aquí irá el menú (Fase 8)
 }
     static void crearCliente() {
@@ -76,6 +73,20 @@ public static void main(String[] args) {
         c.setEmail(sc.nextLine());
 
         System.out.println("Cliente actualizado con exito.");
+    }
+    
+    static void eliminarCliente() {
+        System.out.print("ID del cliente a eliminar: ");
+        String id = sc.nextLine();
+        Cliente c = buscarCliente(id);
+
+        if (c == null) {
+            System.out.println("Cliente no encontrado.");
+            return;
+        }
+
+        clientes.remove(c);
+        System.out.println("Cliente eliminado con exito.");
     }
 
 }
