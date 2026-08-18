@@ -21,6 +21,7 @@ public static void main(String[] args) {
     listarLibros();
     buscarLibro("5");
     actualizarLibro();
+    eliminarLibro();
 // Aquí irá el menú (Fase 8)
 }
     static void crearCliente() {
@@ -147,6 +148,20 @@ public static void main(String[] args) {
         l.setAutor(sc.nextLine());
 
         System.out.println("Libro actualizado con exito.");
+    }
+    
+    static void eliminarLibro() {
+        System.out.print("Codigo del libro a eliminar: ");
+        String codigo = sc.nextLine();
+        Libro l = buscarLibro(codigo);
+
+        if (l == null) {
+            System.out.println("Libro no encontrado.");
+            return;
+        }
+
+        libros.remove(l);
+        System.out.println("Libro eliminado con exito.");
     }
 
 }
