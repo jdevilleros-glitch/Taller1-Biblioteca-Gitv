@@ -21,6 +21,7 @@ static Scanner sc = new Scanner(System.in);
 public static void main(String[] args) {
     crearPrestamo();
     devolucion();
+    listarPrestamos();
 // Aquí irá el menú (Fase 8)
 }
     static void crearCliente() {
@@ -216,6 +217,22 @@ public static void main(String[] args) {
         }
 
         System.out.println("Prestamo no encontrado.");
+    }
+    
+    static void listarPrestamos() {
+        System.out.println("=== Prestamos Activos ===");
+        boolean hayActivos = false;
+
+        for (Prestamo p : prestamos) {
+            if (p.getEstado().equals("ACTIVO")) {
+                System.out.println(p);
+                hayActivos = true;
+            }
+        }
+
+        if (!hayActivos) {
+            System.out.println("No hay prestamos activos.");
+        }
     }
 
 }
