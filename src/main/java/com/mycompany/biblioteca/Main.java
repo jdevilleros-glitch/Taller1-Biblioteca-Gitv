@@ -19,6 +19,7 @@ public static void main(String[] args) {
     crearCliente();
     listarClientes();
     buscarCliente("5");
+    actualizarCliente();
 // Aquí irá el menú (Fase 8)
 }
     static void crearCliente() {
@@ -55,6 +56,26 @@ public static void main(String[] args) {
             }
         }
         return null;
+    }
+    
+    static void actualizarCliente() {
+        System.out.print("ID del cliente a actualizar: ");
+        String id = sc.nextLine();
+        Cliente c = buscarCliente(id);
+
+        if (c == null) {
+            System.out.println("Cliente no encontrado.");
+            return;
+        }
+
+        System.out.print("Nuevo nombre (" + c.getNombre() + "): ");
+        c.setNombre(sc.nextLine());
+        System.out.print("Nuevo telefono (" + c.getTelefono() + "): ");
+        c.setTelefono(sc.nextLine());
+        System.out.print("Nuevo email (" + c.getEmail() + "): ");
+        c.setEmail(sc.nextLine());
+
+        System.out.println("Cliente actualizado con exito.");
     }
 
 }
