@@ -20,6 +20,7 @@ public static void main(String[] args) {
     crearLibro();
     listarLibros();
     buscarLibro("5");
+    actualizarLibro();
 // Aquí irá el menú (Fase 8)
 }
     static void crearCliente() {
@@ -126,6 +127,26 @@ public static void main(String[] args) {
             }
         }
         return null;
+    }
+    
+    static void actualizarLibro() {
+        System.out.print("Codigo del libro a actualizar: ");
+        String codigo = sc.nextLine();
+        Libro l = buscarLibro(codigo);
+
+        if (l == null) {
+            System.out.println("Libro no encontrado.");
+            return;
+        }
+
+        System.out.print("Nuevo titulo (" + l.getTitulo() + "): ");
+        l.setTitulo(sc.nextLine());
+        System.out.print("Nuevo anio (" + l.getAnioPublicacion() + "): ");
+        l.setAnioPublicacion(sc.nextLine());
+        System.out.print("Nuevo autor (" + l.getAutor() + "): ");
+        l.setAutor(sc.nextLine());
+
+        System.out.println("Libro actualizado con exito.");
     }
 
 }
