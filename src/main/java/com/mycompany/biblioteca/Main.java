@@ -20,6 +20,7 @@ static ArrayList<Cliente> clientes = new ArrayList<>();
 static Scanner sc = new Scanner(System.in);
 public static void main(String[] args) {
     crearPrestamo();
+    devolucion();
 // Aquí irá el menú (Fase 8)
 }
     static void crearCliente() {
@@ -195,6 +196,26 @@ public static void main(String[] args) {
         l.setDisponible(false);
 
         System.out.println("Prestamo registrado con exito.");
+    }
+    
+    static void devolucion() {
+        System.out.print("ID del prestamo a devolver: ");
+        String idPrestamo = sc.nextLine();
+
+        for (Prestamo p : prestamos) {
+            if (p.getIdPrestamo().equals(idPrestamo)) {
+                if (p.getEstado().equals("DEVUELTO")) {
+                    System.out.println("Este prestamo ya fue devuelto.");
+                    return;
+                }
+                p.setEstado("DEVUELTO");
+                p.getLibro().setDisponible(true);
+                System.out.println("Devolucion registrada con exito.");
+                return;
+            }
+        }
+
+        System.out.println("Prestamo no encontrado.");
     }
 
 }
