@@ -18,6 +18,7 @@ static ArrayList<Cliente> clientes = new ArrayList<>();
 static Scanner sc = new Scanner(System.in);
 public static void main(String[] args) {
     crearLibro();
+    listarLibros();
 // Aquí irá el menú (Fase 8)
 }
     static void crearCliente() {
@@ -104,6 +105,17 @@ public static void main(String[] args) {
         Libro l = new Libro(codigo, titulo, anio, autor);
         libros.add(l);
         System.out.println("Libro creado con exito.");
+    }
+    
+    static void listarLibros() {
+        System.out.println("=== Lista de Libros ===");
+        if (libros.isEmpty()) {
+            System.out.println("No hay libros registrados.");
+            return;
+        }
+        for (Libro l : libros) {
+            System.out.println(l);
+        }
     }
 
 }
