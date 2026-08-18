@@ -8,9 +8,31 @@ package com.mycompany.biblioteca;
  *
  * @author USUARIO
  */
-public class Main {
+import java.util.ArrayList;
+import java.util.Scanner;
 
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
-    }
+
+public class Main {
+static ArrayList<Cliente> clientes = new ArrayList<>();
+static Scanner sc = new Scanner(System.in);
+public static void main(String[] args) {
+    crearCliente();
+// Aquí irá el menú (Fase 8)
+}
+    static void crearCliente() {
+        System.out.println("=== Crear Cliente ===");
+        System.out.print("ID: ");
+        String id = sc.nextLine();
+        System.out.print("Nombre: ");
+        String nombre = sc.nextLine();
+        System.out.print("Telefono: ");
+        String telefono = sc.nextLine();
+        System.out.print("Email: ");
+        String email = sc.nextLine();
+
+        Cliente c = new Cliente(id, nombre, telefono, email);
+        clientes.add(c);
+        System.out.println("Cliente creado con exito.");
+}
+
 }
