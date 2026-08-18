@@ -17,6 +17,7 @@ static ArrayList<Cliente> clientes = new ArrayList<>();
 static Scanner sc = new Scanner(System.in);
 public static void main(String[] args) {
     crearCliente();
+    listarClientes();
 // Aquí irá el menú (Fase 8)
 }
     static void crearCliente() {
@@ -33,6 +34,17 @@ public static void main(String[] args) {
         Cliente c = new Cliente(id, nombre, telefono, email);
         clientes.add(c);
         System.out.println("Cliente creado con exito.");
-}
+    }
+    
+    static void listarClientes() {
+        System.out.println("=== Lista de Clientes ===");
+        if (clientes.isEmpty()) {
+            System.out.println("No hay clientes registrados.");
+            return;
+        }
+        for (Cliente c : clientes) {
+            System.out.println(c);
+        }
+    }
 
 }
