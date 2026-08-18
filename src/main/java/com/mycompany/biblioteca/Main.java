@@ -18,6 +18,7 @@ static Scanner sc = new Scanner(System.in);
 public static void main(String[] args) {
     crearCliente();
     listarClientes();
+    buscarCliente("5");
 // Aquí irá el menú (Fase 8)
 }
     static void crearCliente() {
@@ -45,6 +46,15 @@ public static void main(String[] args) {
         for (Cliente c : clientes) {
             System.out.println(c);
         }
+    }
+    
+    static Cliente buscarCliente(String id) {
+        for (Cliente c : clientes) {
+            if (c.getId().equals(id)) {
+                return c;
+            }
+        }
+        return null;
     }
 
 }
