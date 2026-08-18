@@ -19,6 +19,7 @@ static Scanner sc = new Scanner(System.in);
 public static void main(String[] args) {
     crearLibro();
     listarLibros();
+    buscarLibro("5");
 // Aquí irá el menú (Fase 8)
 }
     static void crearCliente() {
@@ -116,6 +117,15 @@ public static void main(String[] args) {
         for (Libro l : libros) {
             System.out.println(l);
         }
+    }
+    
+    static Libro buscarLibro(String codigo) {
+        for (Libro l : libros) {
+            if (l.getCodigo().equals(codigo)) {
+                return l;
+            }
+        }
+        return null;
     }
 
 }
