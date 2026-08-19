@@ -8,9 +8,278 @@ package com.mycompany.biblioteca;
  *
  * @author USUARIO
  */
-public class Main {
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.time.LocalDate;
 
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
+
+public class Main {
+static ArrayList<Prestamo> prestamos = new ArrayList<>();
+static ArrayList<Libro> libros = new ArrayList<>();
+static ArrayList<Cliente> clientes = new ArrayList<>();
+static Scanner sc = new Scanner(System.in);
+public static void main(String[] args) {int opcion;
+
+    do {
+        System.out.println("\n===== SISTEMA DE GESTION DE BIBLIOTECA =====");
+        System.out.println("--- Clientes ---");
+        System.out.println("1. Crear cliente");
+        System.out.println("2. Listar clientes");
+        System.out.println("3. Buscar cliente");
+        System.out.println("4. Actualizar cliente");
+        System.out.println("5. Eliminar cliente");
+        System.out.println("--- Libros ---");
+        System.out.println("6. Crear libro");
+        System.out.println("7. Listar libros");
+        System.out.println("8. Buscar libro");
+        System.out.println("9. Actualizar libro");
+        System.out.println("10. Eliminar libro");
+        System.out.println("--- Prestamos ---");
+        System.out.println("11. Registrar prestamo");
+        System.out.println("12. Registrar devolucion");
+        System.out.println("13. Listar prestamos activos");
+        System.out.println("0. Salir");
+        System.out.print("Elige una opcion: ");
+
+        opcion = Integer.parseInt(sc.nextLine());
+
+        switch (opcion) {
+            case 1 -> crearCliente();
+            case 2 -> listarClientes();
+            case 3 -> {
+                System.out.print("ID del cliente a buscar: ");
+                Cliente c = buscarCliente(sc.nextLine());
+                System.out.println(c != null ? c : "Cliente no encontrado.");
+            }
+            case 4 -> actualizarCliente();
+            case 5 -> eliminarCliente();
+            case 6 -> crearLibro();
+            case 7 -> listarLibros();
+            case 8 -> {
+                System.out.print("Codigo del libro a buscar: ");
+                Libro l = buscarLibro(sc.nextLine());
+                System.out.println(l != null ? l : "Libro no encontrado.");
+            }
+            case 9 -> actualizarLibro();
+            case 10 -> eliminarLibro();
+            case 11 -> crearPrestamo();
+            case 12 -> devolucion();
+            case 13 -> listarPrestamos();
+            case 0 -> System.out.println("Saliendo del sistema...");
+            default -> System.out.println("Opcion invalida.");
+        }
+
+    } while (opcion != 0);
+}
+    static void crearCliente() {
+        System.out.println("=== Crear Cliente ===");
+        System.out.print("ID: ");
+        String id = sc.nextLine();
+        System.out.print("Nombre: ");
+        String nombre = sc.nextLine();
+        System.out.print("Telefono: ");
+        String telefono = sc.nextLine();
+        System.out.print("Email: ");
+        String email = sc.nextLine();
+
+        Cliente c = new Cliente(id, nombre, telefono, email);
+        clientes.add(c);
+        System.out.println("Cliente creado con exito.");
     }
+    
+    static void listarClientes() {
+        System.out.println("=== Lista de Clientes ===");
+        if (clientes.isEmpty()) {
+            System.out.println("No hay clientes registrados.");
+            return;
+        }
+        for (Cliente c : clientes) {
+            System.out.println(c);
+        }
+    }
+    
+    static Cliente buscarCliente(String id) {
+        for (Cliente c : clientes) {
+            if (c.getId().equals(id)) {
+                return c;
+            }
+        }
+        return null;
+    }
+    
+    static void actualizarCliente() {
+        System.out.print("ID del cliente a actualizar: ");
+        String id = sc.nextLine();
+        Cliente c = buscarCliente(id);
+
+        if (c == null) {
+            System.out.println("Cliente no encontrado.");
+            return;
+        }
+
+        System.out.print("Nuevo nombre (" + c.getNombre() + "): ");
+        c.setNombre(sc.nextLine());
+        System.out.print("Nuevo telefono (" + c.getTelefono() + "): ");
+        c.setTelefono(sc.nextLine());
+        System.out.print("Nuevo email (" + c.getEmail() + "): ");
+        c.setEmail(sc.nextLine());
+
+        System.out.println("Cliente actualizado con exito.");
+    }
+    
+    static void eliminarCliente() {
+        System.out.print("ID del cliente a eliminar: ");
+        String id = sc.nextLine();
+        Cliente c = buscarCliente(id);
+
+        if (c == null) {
+            System.out.println("Cliente no encontrado.");
+            return;
+        }
+
+        clientes.remove(c);
+        System.out.println("Cliente eliminado con exito.");
+    }
+    
+    static void crearLibro() {
+        System.out.println("=== Crear Libro ===");
+        System.out.print("Codigo: ");
+        String codigo = sc.nextLine();
+        System.out.print("Titulo: ");
+        String titulo = sc.nextLine();
+        System.out.print("Anio de publicacion: ");
+        String anio = sc.nextLine();
+        System.out.print("Autor: ");
+        String autor = sc.nextLine();
+
+        Libro l = new Libro(codigo, titulo, anio, autor);
+        libros.add(l);
+        System.out.println("Libro creado con exito.");
+    }
+    
+    static void listarLibros() {
+        System.out.println("=== Lista de Libros ===");
+        if (libros.isEmpty()) {
+            System.out.println("No hay libros registrados.");
+            return;
+        }
+        for (Libro l : libros) {
+            System.out.println(l);
+        }
+    }
+    
+    static Libro buscarLibro(String codigo) {
+        for (Libro l : libros) {
+            if (l.getCodigo().equals(codigo)) {
+                return l;
+            }
+        }
+        return null;
+    }
+    
+    static void actualizarLibro() {
+        System.out.print("Codigo del libro a actualizar: ");
+        String codigo = sc.nextLine();
+        Libro l = buscarLibro(codigo);
+
+        if (l == null) {
+            System.out.println("Libro no encontrado.");
+            return;
+        }
+
+        System.out.print("Nuevo titulo (" + l.getTitulo() + "): ");
+        l.setTitulo(sc.nextLine());
+        System.out.print("Nuevo anio (" + l.getAnioPublicacion() + "): ");
+        l.setAnioPublicacion(sc.nextLine());
+        System.out.print("Nuevo autor (" + l.getAutor() + "): ");
+        l.setAutor(sc.nextLine());
+
+        System.out.println("Libro actualizado con exito.");
+    }
+    
+    static void eliminarLibro() {
+        System.out.print("Codigo del libro a eliminar: ");
+        String codigo = sc.nextLine();
+        Libro l = buscarLibro(codigo);
+
+        if (l == null) {
+            System.out.println("Libro no encontrado.");
+            return;
+        }
+
+        libros.remove(l);
+        System.out.println("Libro eliminado con exito.");
+    }
+    
+    static void crearPrestamo() {
+        System.out.println("=== Registrar Prestamo ===");
+        System.out.print("ID del cliente: ");
+        String idCliente = sc.nextLine();
+        Cliente c = buscarCliente(idCliente);
+
+        if (c == null) {
+            System.out.println("Cliente no encontrado.");
+            return;
+        }
+
+        System.out.print("Codigo del libro: ");
+        String codigoLibro = sc.nextLine();
+        Libro l = buscarLibro(codigoLibro);
+
+        if (l == null) {
+            System.out.println("Libro no encontrado.");
+            return;
+        }
+
+        if (!l.isDisponible()) {
+            System.out.println("El libro no esta disponible actualmente.");
+            return;
+        }
+
+        System.out.print("ID del prestamo: ");
+        String idPrestamo = sc.nextLine();
+
+        Prestamo p = new Prestamo(idPrestamo, c, l);
+        prestamos.add(p);
+        l.setDisponible(false);
+
+        System.out.println("Prestamo registrado con exito.");
+    }
+    
+    static void devolucion() {
+        System.out.print("ID del prestamo a devolver: ");
+        String idPrestamo = sc.nextLine();
+
+        for (Prestamo p : prestamos) {
+            if (p.getIdPrestamo().equals(idPrestamo)) {
+                if (p.getEstado().equals("DEVUELTO")) {
+                    System.out.println("Este prestamo ya fue devuelto.");
+                    return;
+                }
+                p.setEstado("DEVUELTO");
+                p.getLibro().setDisponible(true);
+                System.out.println("Devolucion registrada con exito.");
+                return;
+            }
+        }
+
+        System.out.println("Prestamo no encontrado.");
+    }
+    
+    static void listarPrestamos() {
+        System.out.println("=== Prestamos Activos ===");
+        boolean hayActivos = false;
+
+        for (Prestamo p : prestamos) {
+            if (p.getEstado().equals("ACTIVO")) {
+                System.out.println(p);
+                hayActivos = true;
+            }
+        }
+
+        if (!hayActivos) {
+            System.out.println("No hay prestamos activos.");
+        }
+    }
+
 }
